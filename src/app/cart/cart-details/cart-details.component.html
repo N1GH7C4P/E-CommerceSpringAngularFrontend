@@ -1,0 +1,75 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+
+      <!--ngIf with else block-->
+      <div *ngIf="cartItems.length > 0; else elseBlock">
+
+      <table class="table table-hover table-bordered">
+
+        <thead>
+          <tr>
+            <th width="20%">Product image</th>
+            <th width="50%">Product detail</th>
+            <th width="30%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems">
+            <td>
+              <img
+                src="{{ item.imageUrl }}"
+                alt=""
+                class="img-responsive"
+                width="150px"
+              />
+            </td>
+            <td>
+              <p>{{ item.name }}</p>
+              <p>{{ item.unitPrice | currency: "USD" }}</p>
+            </td>
+            <td>
+              <div class="items">
+                <label>Quantity:</label>
+                <div class="row no-gutters" >
+                  <div class="col">
+                    <button class="btn btn-primary btn-sm" (click)="onIncrementQuantity(item)">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                  <div class="col ml-4 mr-2">
+                    <p>{{ item.quantity }}</p>
+                  </div>
+                    <div class="col">
+                      <button class="btn btn-primary btn-sm" (click)="onDecrementQuantity(item)">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
+                    <div class="col-8"></div>
+                </div>
+
+                  <button class="btn btn-primary btn-sm mt-2" (click)="onRemove(item)">Remove</button>
+                  <p> Subtotal: {{ item.unitPrice * item.quantity | currency : "USD" }} </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td style="font-weight: bold">
+              <p>Total Quantity: {{ totalQuantity }}</p>
+              <p>Shipping: Free</p>
+              <p>Total Price: {{ totalPrice | currency: "USD" }}</p>
+              <a routerLink="/checkout" class="btn btn-primary">Checkout</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #elseBlock>
+      <span class="alert alert-danger" style="display: block;" role="alert"
+        >shopping cart is empty...</span>
+    </ng-template>
+    </div>
+  </div>
+</div>
